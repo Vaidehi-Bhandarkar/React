@@ -1,0 +1,35 @@
+#heading{
+    color: cornflowerblue;
+    margin-right: 10px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+#search{
+    align-items: center;
+    /* position: absolute; */
+    left: 50%;
+    width: 150px;
+    margin-top: 10px;
+}
+
+#container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 60px;
+    position: relative;
+}
+
+#logo{
+    width: 200px;
+}
+
+#user-icon{
+    cursor: pointer;
+    font-size: 30px;
+}
+
+#user-icon:hover{
+    color: #007bff;
+}
