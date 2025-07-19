@@ -1,5 +1,5 @@
 const Shimmer = () => {
-	console.log("SHIMMER");
+	// console.log("SHIMMER");
 	return (
 		<div className="shimmer-container">
 			<div className="shimmer-card"></div>

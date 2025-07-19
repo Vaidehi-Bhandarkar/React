@@ -17,24 +17,41 @@ const Header = () => {
 			<div className="nav-items">
 				<ul>
 					<li>
-						<Link to={"/"}> Home </Link>{" "}
+						<Link
+							style={{ textDecoration: "none", color: "inherit" }}
+							to={"/"}>
+							{" "}
+							Home{" "}
+						</Link>
 					</li>
 					<li>
-						<Link to={"/about"}> About Us </Link>{" "}
+						<Link
+							style={{ textDecoration: "none", color: "inherit" }}
+							to={"/about"}>
+							{" "}
+							About Us{" "}
+						</Link>
 					</li>
 					<li>
-						<Link to={"/contact"}> Contact Us </Link>{" "}
+						<Link
+							style={{ textDecoration: "none", color: "inherit" }}
+							to={"/contact"}>
+							{" "}
+							Contact Us{" "}
+						</Link>
 					</li>
 					<li> Cart </li>
-					<button
-						className="login-logout"
-						onClick={() => {
-							return loginBtn === "Login"
-								? setLoginBtn("Logout")
-								: setLoginBtn("Login");
-						}}>
-						{loginBtn}
-					</button>
+					<li>
+						<button
+							className="login-btn"
+							onClick={() => {
+								loginBtn === "Login"
+									? setLoginBtn("Logout")
+									: setLoginBtn("Login");
+							}}>
+							{loginBtn}
+						</button>
+					</li>
 				</ul>
 			</div>
 		</div>
