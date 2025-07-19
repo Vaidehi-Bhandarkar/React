@@ -1,10 +1,17 @@
+import RestaurantMenu from "./RestaurantMenu";
+
 const RestaurantCard = (props) => {
-	// console.log("This is component: ",props);
+	// console.log("This is component: ", props);
 	const { restData } = props;
-	const { name, avgRating, cuisines, cloudinaryImageId, sla } = restData?.info; //<- For static data of Zomato
+	const { name, avgRating, cuisines, cloudinaryImageId, sla, id } =
+		restData?.info; //<- For static data of Zomato
 
 	return (
-		<div className="rest-card">
+		<div
+			className="rest-card"
+			onClick={() => {
+				return <RestaurantMenu restId={id} />;
+			}}>
 			{/* ZOMATO STATIC DATA */}
 			{/* <img
 				className="img-logo"

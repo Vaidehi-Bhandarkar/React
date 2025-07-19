@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import restaurantList from "../utils/mockData";
+// import restaurantList from "../utils/mockData";
 import RestaurantCard from "./restaurantCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
 	const [restaurantsList, setRestaurantsList] = useState([]);
@@ -18,9 +19,9 @@ const Body = () => {
 
 	const getData = async () => {
 		const data = await fetch(
-			"https://swiggy-api-4c740.web.app/swiggy-api.json",
+			"https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.022505&lng=72.5713621&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
 		);
-		console.log("DATA: ", data);
+		// console.log("DATA: ", data);
 
 		const res = await data.json();
 
@@ -29,6 +30,7 @@ const Body = () => {
 		// 	res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
 		// );
 
+		//Optional Chaining
 		const restaurantData =
 			res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
 				?.restaurants || [];
@@ -37,17 +39,29 @@ const Body = () => {
 		setRestaurantsList(restaurantData);
 	};
 
-	if (filterList.length === 0) {
-		return <Shimmer />;
-	}
+	const handleSearch = () => {
+		const res = restaurantsList?.filter((item) => {
+			return item?.info?.name
+				?.toLowerCase()
+				?.includes(searchText.toLowerCase());
+		});
+		//The below line is to fix the issue of main rendering of Body component
+		//FILTER LIST STORES THE COPY OF MAIN LIST TO FIX BUG IN SEARCH BAR
+		if (res.length === 0 || searchText === "") setFilterList(restaurantsList);
+		else setFilterList(res);
+	};
 
-	return (
+	//CONDITIONAL RENDER
+
+	return filterList.length === 0 ? (
+		<Shimmer />
+	) : (
 		<div className="body">
 			<div className="filter">
 				<button
 					className="top-restaurants"
 					onClick={() => {
-						console.log("RSTLST: ", restaurantsList);
+						// console.log("RSTLST: ", restaurantsList);
 						let res = restaurantsList?.filter((item) => {
 							return item?.info?.avgRating > 4.2;
 						});
@@ -58,26 +72,34 @@ const Body = () => {
 				</button>
 
 				<div className="search-bar">
+					{/* onKeyDown is functionality of text and not search button as fcus is on text box while typing */}
 					<input
 						type="search"
 						placeholder="Restaurant Name"
+						value={searchText}
 						onChange={(event) => {
 							setSearchText(event.target.value);
+						}}
+						onKeyDown={(event) => {
+							if (event.keyCode === 13) {
+								handleSearch();
+							}
 						}}
 					/>
 
 					<button
 						className="search-restaurants"
 						onClick={() => {
-							let res = restaurantsList?.filter((item) => {
-								return item?.info?.name
-									?.toLowerCase()
-									?.includes(searchText.toLowerCase());
-							});
-							//The below line is to fix the issue of main rendering of Body component
+							// const res = restaurantsList?.filter((item) => {
+							// 	return item?.info?.name
+							// 		?.toLowerCase()
+							// 		?.includes(searchText.toLowerCase());
+							// });
+							// //The below line is to fix the issue of main rendering of Body component
 
-							//FILTER LIST STORES THE COPY OF MAIN LIST TO FIX BUG IN SEARCH BAR
-							setFilterList(res);
+							// //FILTER LIST STORES THE COPY OF MAIN LIST TO FIX BUG IN SEARCH BAR
+							// setFilterList(res);
+							handleSearch();
 						}}>
 						Search
 					</button>
@@ -93,10 +115,12 @@ const Body = () => {
 				{/* DYNAMIC */}
 				{filterList?.map((item) => {
 					return (
-						<RestaurantCard
-							restData={item}
+						<Link
+							style={{ textDecoration: "none", color: "inherit" }}
 							key={item.info.id}
-						/>
+							to={"/restaurant/" + item.info.id}>
+							<RestaurantCard restData={item} />
+						</Link>
 					);
 				})}
 			</div>
