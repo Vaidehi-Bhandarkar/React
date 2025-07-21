@@ -13,26 +13,42 @@ const RestaurantMenu = () => {
 	}, []);
 
 	const getMenuData = async () => {
-		console.log(RESTAURANT_URL + resId);
+		// console.log(RESTAURANT_URL + resId);
 		const menuData = await fetch(RESTAURANT_URL + resId);
 
 		const resp = await menuData.json();
+		// console.log("MENU DATA: ", resp);
 
-		console.log("MENU DATA: ", resp);
+		// //HERE, GroupedCard can be at any number of cards in resp.data
+		// const groupedCardNumber = resp?.data?.cards?.find(
+		// 	(card) => card?.groupedCard?.cardGroupMap?.REGULAR?.cards,
+		// );
+		// // console.log("GC: ", groupedCardNumber);
 
-		setItemName(
-			resp?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-				?.card?.itemCards || [],
-		);
+		// //Similar for recommended item
+		// const recommendedItem =
+		// 	groupedCardNumber?.groupedCard?.cardGroupMap?.REGULAR?.cards.find(
+		// 		(card) => card?.card?.card?.itemCards,
+		// 	);
+		// // console.log("RI: ", recommendedItem);
+
+		//ABOVE 2 TIMES CONVERSION CAN BE REDUCED TO ONE var as follows:
+		const itemCard = resp?.data?.cards
+			?.find((card) => card?.groupedCard?.cardGroupMap?.REGULAR?.cards)
+			?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(
+				(card) => card?.card?.card?.itemCards,
+			);
+		console.log("IC: ", itemCard);
+
+		setItemName(itemCard?.card?.card?.itemCards || []);
+		// console.log("ITEM: ", itemName);
 
 		setRestName(resp?.data?.cards[0]?.card?.card?.text || "");
 	};
 
-	console.log("ITEM: ", itemName);
-	console.log("REST NAME: ", restName);
 	return (
 		<div>
-			<h1> {restName} </h1>
+			<h2> {restName} </h2>
 
 			<div className="menuItems">
 				<h3> Recomended </h3>

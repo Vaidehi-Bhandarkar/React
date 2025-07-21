@@ -63,7 +63,7 @@ const Body = () => {
 					onClick={() => {
 						// console.log("RSTLST: ", restaurantsList);
 						let res = restaurantsList?.filter((item) => {
-							return item?.info?.avgRating > 4.2;
+							return item?.info?.avgRating > 4.5;
 						});
 						//The below line is to fix the issue of main rendering of Body component
 						setFilterList(res);
