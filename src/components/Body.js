@@ -4,12 +4,20 @@ import RestaurantCard from "./restaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/hooks/useFetchRestaurant";
+import useOnlineStatus from "../utils/hooks/useOnlineStatus";
 
 const Body = () => {
+	//All the useStates should be defined at the top
 	const [searchText, setSearchText] = useState("");
-
+	const onlineStatus = useOnlineStatus();
 	//By default, hooks operation is async await
-	const { filterList, restaurantsList } = useFetchRestaurant();
+	const { filterList, restaurantsList, setFilterList } = useFetchRestaurant();
+
+	if (!onlineStatus) {
+		return (
+			<h1>Seems you're Offline. Connect to network for seamless browsing!!</h1>
+		);
+	}
 
 	const handleSearch = () => {
 		const res = restaurantsList?.filter((item) => {
@@ -24,7 +32,6 @@ const Body = () => {
 	};
 
 	//CONDITIONAL RENDER
-
 	return filterList.length === 0 ? (
 		<Shimmer />
 	) : (

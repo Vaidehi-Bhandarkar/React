@@ -25,7 +25,7 @@ const useFetchRestaurant = () => {
 		setRestaurantsList(restaurantData);
 	};
 
-	return { filterList, restaurantsList };
+	return { filterList, restaurantsList, setFilterList };
 };
 
 export default useFetchRestaurant;

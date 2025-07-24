@@ -73,8 +73,8 @@
 
 .login-btn {
 	cursor: pointer;
-	/* padding: 5px 20px; */
-	width: 200px;
+	padding: 5px 20px;
+	/* width: 200px; */
 }
 
 .shimmer-container {
