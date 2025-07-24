@@ -1,43 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // import restaurantList from "../utils/mockData";
 import RestaurantCard from "./restaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useFetchRestaurant from "../utils/hooks/useFetchRestaurant";
 
 const Body = () => {
-	const [restaurantsList, setRestaurantsList] = useState([]);
-	const [filterList, setFilterList] = useState([]);
 	const [searchText, setSearchText] = useState("");
 
-	useEffect(() => {
-		getData();
-	}, []);
-
-	//ABOVE STMT IS SAME AS
-	// const arr = useState(restaurantList);
-	// const [restList, useRestList] = arr; //Destructuring of useState response Array
-
-	const getData = async () => {
-		const data = await fetch(
-			"https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.022505&lng=72.5713621&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
-		);
-		// console.log("DATA: ", data);
-
-		const res = await data.json();
-
-		// console.log(
-		// 	"RESULT DATA: ",
-		// 	res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants,
-		// );
-
-		//Optional Chaining
-		const restaurantData =
-			res?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-				?.restaurants || [];
-
-		setFilterList(restaurantData);
-		setRestaurantsList(restaurantData);
-	};
+	//By default, hooks operation is async await
+	const { filterList, restaurantsList } = useFetchRestaurant();
 
 	const handleSearch = () => {
 		const res = restaurantsList?.filter((item) => {
@@ -72,7 +44,7 @@ const Body = () => {
 				</button>
 
 				<div className="search-bar">
-					{/* onKeyDown is functionality of text and not search button as fcus is on text box while typing */}
+					{/* onKeyDown is functionality of text and not search button as focus is on text box while typing */}
 					<input
 						type="search"
 						placeholder="Restaurant Name"
@@ -90,15 +62,6 @@ const Body = () => {
 					<button
 						className="search-restaurants"
 						onClick={() => {
-							// const res = restaurantsList?.filter((item) => {
-							// 	return item?.info?.name
-							// 		?.toLowerCase()
-							// 		?.includes(searchText.toLowerCase());
-							// });
-							// //The below line is to fix the issue of main rendering of Body component
-
-							// //FILTER LIST STORES THE COPY OF MAIN LIST TO FIX BUG IN SEARCH BAR
-							// setFilterList(res);
 							handleSearch();
 						}}>
 						Search
