@@ -1,4 +1,5 @@
-.header {
+@import "tailwindcss";
+/* .header {
 	display: flex;
 	border: 1px solid black;
 	justify-content: space-between;
@@ -75,7 +76,7 @@
 	cursor: pointer;
 	padding: 5px 20px;
 	/* width: 200px; */
-}
+/* }
 
 .shimmer-container {
 	margin-top: 40px;
@@ -104,4 +105,4 @@
 .item-details {
 	display: flex;
 	justify-content: space-between;
-}
+} */

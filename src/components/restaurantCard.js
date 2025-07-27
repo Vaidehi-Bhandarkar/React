@@ -8,7 +8,7 @@ const RestaurantCard = (props) => {
 
 	return (
 		<div
-			className="rest-card"
+			className="shadow-md hover:bg-yellow-400 w-50 h-110 pl-3 pr-3 pt-2 rounded-lg m-1"
 			onClick={() => {
 				return <RestaurantMenu restId={id} />;
 			}}>
@@ -23,14 +23,14 @@ const RestaurantCard = (props) => {
 			<h4> {servesCuisine} </h4> */}
 			{/* SWIGGY DYNAMIC DATA */}
 			<img
-				className="img-logo"
+				className="w-50 h-50 rounded-lg"
 				alt="Food-img"
 				src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`}
 			/>
-			<h3> {name} </h3>
-			<h4> {avgRating} ⭐️</h4>
-			<h4> {cuisines.join(", ")} </h4>
-			<h4> {sla?.slaString} </h4>
+			<h3 className="text-lg font-semibold pr-2 pt-2 pb-2"> {name} </h3>
+			<h4 className="text-md font-small pr-2 pb-1"> {avgRating} ⭐️</h4>
+			<h4 className="text-md font-small pr-2 pb-1"> {cuisines.join(", ")} </h4>
+			<h4 className="text-md font-small pr-2 pb-1"> {sla?.slaString} </h4>
 		</div>
 	);
 };

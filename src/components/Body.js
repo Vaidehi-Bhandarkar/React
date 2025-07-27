@@ -36,9 +36,9 @@ const Body = () => {
 		<Shimmer />
 	) : (
 		<div className="body">
-			<div className="filter">
+			<div className="flex pt-5 pb-5 justify-baseline p-10">
 				<button
-					className="top-restaurants"
+					className="bg-yellow-400 px-10 py-0.5 cursor-pointer rounded-md shadow-md"
 					onClick={() => {
 						// console.log("RSTLST: ", restaurantsList);
 						let res = restaurantsList?.filter((item) => {
@@ -50,11 +50,11 @@ const Body = () => {
 					Top Rated Restaurants
 				</button>
 
-				<div className="search-bar">
+				<div className="px-30">
 					{/* onKeyDown is functionality of text and not search button as focus is on text box while typing */}
 					<input
 						type="search"
-						placeholder="Restaurant Name"
+						placeholder="Restaurant Name..."
 						value={searchText}
 						onChange={(event) => {
 							setSearchText(event.target.value);
@@ -64,10 +64,11 @@ const Body = () => {
 								handleSearch();
 							}
 						}}
+						className="border-2 rounded-sm px-2"
 					/>
 
 					<button
-						className="search-restaurants"
+						className="bg-yellow-400 px-8 py-0.5 cursor-pointer rounded-md shadow-md ml-4"
 						onClick={() => {
 							handleSearch();
 						}}>
@@ -76,7 +77,7 @@ const Body = () => {
 				</div>
 			</div>
 
-			<div className="rest-container">
+			<div className="flex flex-wrap">
 				{/* STATIC */}
 				{/* <RestaurantCard restData={restaurantList?.itemListElement[0]} />
                 <RestaurantCard restData={restaurantList?.itemListElement[1]} />

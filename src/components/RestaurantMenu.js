@@ -6,18 +6,18 @@ const RestaurantMenu = () => {
 	const { itemName, restName } = useRestaurantMenu(resId);
 
 	return (
-		<div>
-			<h2> {restName} </h2>
+		<div className="m-5">
+			<h2 className="text-2xl font-bold"> {restName} </h2>
 
-			<div className="menuItems">
-				<h3> Recomended </h3>
+			<div>
+				<h3 className="text-lg font-semibold mt-4 mb-4"> Recomended Items </h3>
 				<ul>
 					{itemName.map((item) => {
 						return (
 							<div
-								className="item-row"
+								className=""
 								key={item.card.info.id}>
-								<li className="item-details">
+								<li className="w-200 bg-gray-100 rounded-md m-2 p-3 flex justify-between hover:bg-yellow-400">
 									<span>{item.card.info.name}</span>
 									<span>
 										{" Rs. "}

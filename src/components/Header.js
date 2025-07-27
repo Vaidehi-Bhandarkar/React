@@ -9,52 +9,51 @@ const Header = () => {
 	const onlineStatus = useOnlineStatus();
 
 	return (
-		<div className="header">
-			<div className="logo-container">
+		<div className="flex justify-between bg-yellow-400 shadow">
+			<div>
 				<img
-					className="logo"
+					className="w-40"
 					src={LOGO_URL}
 				/>
 			</div>
 
-			<div className="nav-items">
-				<ul>
-					<li>Online Status: {onlineStatus ? "✅" : "🔴"} </li>
-					<li>
+			<div>
+				<ul className="flex pt-15 mr-10">
+					<li className="px-5 text-lg font-semibold ">
+						Online Status: {onlineStatus ? "✅" : "🔴"}{" "}
+					</li>
+					<li className="text-lg font-semibold px-5">
 						<Link
 							style={{ textDecoration: "none", color: "inherit" }}
 							to={"/"}>
-							{" "}
-							Home{" "}
+							Home
 						</Link>
 					</li>
-					<li>
+					<li className="px-5 text-lg font-semibold ">
 						<Link
 							style={{ textDecoration: "none", color: "inherit" }}
 							to={"/about"}>
-							{" "}
-							About Us{" "}
+							About Us
 						</Link>
 					</li>
-					<li>
+					<li className="px-5 text-lg font-semibold ">
 						<Link
 							style={{ textDecoration: "none", color: "inherit" }}
 							to={"/contact"}>
-							{" "}
-							Contact Us{" "}
+							Contact Us
 						</Link>
 					</li>
-					<li>
+					<li className="px-5 text-lg font-semibold ">
 						<Link
 							style={{ textDecoration: "none", color: "inherit" }}
 							to={"/grocery"}>
 							Grocery
 						</Link>
 					</li>
-					<li> Cart </li>
-					<li>
+					<li className="px-5 text-lg font-semibold "> Cart </li>
+					<li className="px-2">
 						<button
-							className="login-btn"
+							className="bg-gray-300 px-8 py-0.5 cursor-pointer rounded-md shadow-md text-lg font-semibold"
 							onClick={() => {
 								loginBtn === "Login"
 									? setLoginBtn("Logout")
