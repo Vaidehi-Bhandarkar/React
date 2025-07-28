@@ -35,4 +35,18 @@ const RestaurantCard = (props) => {
 	);
 };
 
+// HIGHER ORDER FUNCTION - A function that takes Component as an argument and returns enhanced Component
+export const labelRestaurant = (RestaurantCard) => {
+	return (props) => {
+		return (
+			<div>
+				<label className="text-white bg-green-700 m-2 p-2 absolute rounded-lg">
+					Open
+				</label>
+				<RestaurantCard {...props} />
+			</div>
+		);
+	};
+};
+
 export default RestaurantCard;

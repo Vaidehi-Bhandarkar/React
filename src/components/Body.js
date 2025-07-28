@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import restaurantList from "../utils/mockData";
-import RestaurantCard from "./restaurantCard";
+import RestaurantCard, { labelRestaurant } from "./restaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/hooks/useFetchRestaurant";
@@ -12,6 +12,10 @@ const Body = () => {
 	const onlineStatus = useOnlineStatus();
 	//By default, hooks operation is async await
 	const { filterList, restaurantsList, setFilterList } = useFetchRestaurant();
+
+	// console.log("Body rendered", restaurantsList);
+
+	const RestaurantLabel = labelRestaurant(RestaurantCard);
 
 	if (!onlineStatus) {
 		return (
@@ -85,7 +89,14 @@ const Body = () => {
 
 				{/* DYNAMIC */}
 				{filterList?.map((item) => {
-					return (
+					return item.info.isOpen === true ? (
+						<Link
+							style={{ textDecoration: "none", color: "inherit" }}
+							key={item.info.id}
+							to={"/restaurant/" + item.info.id}>
+							<RestaurantLabel restData={item} />
+						</Link>
+					) : (
 						<Link
 							style={{ textDecoration: "none", color: "inherit" }}
 							key={item.info.id}
