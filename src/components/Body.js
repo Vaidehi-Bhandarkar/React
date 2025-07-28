@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import restaurantList from "../utils/mockData";
-import RestaurantCard, { labelRestaurant } from "./restaurantCard";
+import RestaurantCard, { labelRestaurant } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/hooks/useFetchRestaurant";

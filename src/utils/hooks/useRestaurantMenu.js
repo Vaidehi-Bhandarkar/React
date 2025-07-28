@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { RESTAURANT_URL } from "../constants";
+import { ITEM_CATEGORY, RESTAURANT_URL } from "../constants";
 
 const useRestaurantMenu = (resId) => {
 	const [itemName, setItemName] = useState([]);
+	const [itemCategory, setItemCategory] = useState([]);
 	const [restName, setRestName] = useState("");
 
 	useEffect(() => {
@@ -13,17 +14,24 @@ const useRestaurantMenu = (resId) => {
 		const data = await fetch(RESTAURANT_URL + resId);
 		const resp = await data.json();
 
-		const itemCard = resp?.data?.cards
-			?.find((card) => card?.groupedCard?.cardGroupMap?.REGULAR?.cards)
-			?.groupedCard?.cardGroupMap?.REGULAR?.cards?.find(
-				(card) => card?.card?.card?.itemCards,
-			);
-
-		setItemName(itemCard?.card?.card?.itemCards || []);
 		setRestName(resp?.data?.cards[0]?.card?.card?.text || "");
-	};
 
-	return { itemName, restName };
+		const itemCards = resp?.data?.cards?.find(
+			(card) => card?.groupedCard?.cardGroupMap?.REGULAR?.cards,
+		)?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+
+		// console.log("ITEM CARD", itemCards);
+
+		const itemCategoryCards = itemCards.filter((card) => {
+			return card?.card?.card?.["@type"] === ITEM_CATEGORY;
+		});
+
+		// console.log("ICC:", itemCategoryCards);
+		setItemCategory(itemCategoryCards);
+
+		setItemName(itemCards?.card?.card?.itemCards || []);
+	};
+	return { itemName, restName, itemCategory };
 };
 
 export default useRestaurantMenu;

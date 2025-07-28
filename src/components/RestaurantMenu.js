@@ -1,34 +1,32 @@
 import { useParams } from "react-router-dom";
 import useRestaurantMenu from "../utils/hooks/useRestaurantMenu";
+import { useState } from "react";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantMenu = () => {
 	const { resId } = useParams();
-	const { itemName, restName } = useRestaurantMenu(resId);
+	const { itemName, restName, itemCategory } = useRestaurantMenu(resId);
+	const [showIndex, setShowIndex] = useState(null);
 
 	return (
-		<div className="m-5">
+		<div className="m-5 flex flex-col items-center">
 			<h2 className="text-2xl font-bold"> {restName} </h2>
 
 			<div>
-				<h3 className="text-lg font-semibold mt-4 mb-4"> Recomended Items </h3>
-				<ul>
-					{itemName.map((item) => {
-						return (
-							<div
-								className=""
-								key={item.card.info.id}>
-								<li className="w-200 bg-gray-100 rounded-md m-2 p-3 flex justify-between hover:bg-yellow-400">
-									<span>{item.card.info.name}</span>
-									<span>
-										{" Rs. "}
-										{item.card.info.price / 100 ||
-											item.card.info.defaultPrice / 100}
-									</span>
-								</li>
-							</div>
-						);
-					})}
-				</ul>
+				{itemCategory.map((item, index) => {
+					// console.log("icc", item);
+					return (
+						//CONTROLLED COMPONENT:
+						<RestaurantCategory
+							key={item?.card?.card?.categoryId}
+							data={item}
+							showItems={index === showIndex ? true : false} //To set remaining accordians to false
+							setShowIndex={() => {
+								setShowIndex((prevIdx) => (prevIdx === index ? null : index));
+							}}
+						/>
+					);
+				})}
 			</div>
 		</div>
 	);
