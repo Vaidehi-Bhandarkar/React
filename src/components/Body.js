@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 // import restaurantList from "../utils/mockData";
 import RestaurantCard, { labelRestaurant } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useFetchRestaurant from "../utils/hooks/useFetchRestaurant";
 import useOnlineStatus from "../utils/hooks/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
 	//All the useStates should be defined at the top
@@ -12,6 +13,9 @@ const Body = () => {
 	const onlineStatus = useOnlineStatus();
 	//By default, hooks operation is async await
 	const { filterList, restaurantsList, setFilterList } = useFetchRestaurant();
+
+	//Modify context from App.js defined fn instead of main fn
+	const { loggedInUser, setUserName } = useContext(UserContext);
 
 	// console.log("Body rendered", restaurantsList);
 
@@ -78,6 +82,15 @@ const Body = () => {
 						}}>
 						Search
 					</button>
+				</div>
+
+				<div className="px-30">
+					<label> User: </label>
+					<input
+						className="border-2 px-2 rounded-sm"
+						value={loggedInUser}
+						onChange={(e) => setUserName(e.target.value)}
+					/>
 				</div>
 			</div>
 

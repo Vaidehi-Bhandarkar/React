@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -6,15 +6,33 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
+import UserContext from "./utils/UserContext";
 
 // LAZY LOAD GROCERY COMPONENT
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const AppLayout = () => {
+	//STATIC AUTHENTICATION: FOR TESTING useContext
+	const [userName, setUserName] = useState();
+
+	useEffect(() => {
+		//SOME API CALL TO GET AUTH DETAILS. Currently, giving static data
+		const data = {
+			name: "Vaidehi",
+		};
+
+		setUserName(data.name);
+	}, []);
+
 	return (
 		<div>
-			<Header />
-			<Outlet />
+			<UserContext.Provider value={{ loggedInUser: "TEST", setUserName }}>
+				<Header />
+				{/* NESTED Context Provider */}
+				<UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+					<Outlet />
+				</UserContext.Provider>
+			</UserContext.Provider>
 		</div>
 	);
 };
