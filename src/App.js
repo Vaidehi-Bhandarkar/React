@@ -1,12 +1,15 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import ReactDOM from "react-dom/client";
-import Header from "./components/Header";
-import Body from "./components/Body";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import React, { Suspense, lazy, useEffect, useState } from "react";
+
 import About from "./components/About";
+import Body from "./components/Body";
 import Contact from "./components/Contact";
+import Header from "./components/Header";
+import { Provider } from "react-redux";
+import ReactDOM from "react-dom/client";
 import RestaurantMenu from "./components/RestaurantMenu";
 import UserContext from "./utils/UserContext";
+import appStore from "./utils/redux/appStore";
 
 // LAZY LOAD GROCERY COMPONENT
 const Grocery = lazy(() => import("./components/Grocery"));
@@ -26,13 +29,15 @@ const AppLayout = () => {
 
 	return (
 		<div>
-			<UserContext.Provider value={{ loggedInUser: "TEST", setUserName }}>
-				<Header />
-				{/* NESTED Context Provider */}
-				<UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-					<Outlet />
+			<Provider store={appStore}>
+				<UserContext.Provider value={{ loggedInUser: "TEST", setUserName }}>
+					<Header />
+					{/* NESTED Context Provider */}
+					<UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+						<Outlet />
+					</UserContext.Provider>
 				</UserContext.Provider>
-			</UserContext.Provider>
+			</Provider>
 		</div>
 	);
 };
