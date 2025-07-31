@@ -3,6 +3,7 @@ import React, { Suspense, lazy, useEffect, useState } from "react";
 
 import About from "./components/About";
 import Body from "./components/Body";
+import Cart from "./components/Cart";
 import Contact from "./components/Contact";
 import Header from "./components/Header";
 import { Provider } from "react-redux";
@@ -58,6 +59,10 @@ const appRouter = createBrowserRouter([
 			{
 				path: "/contact",
 				element: <Contact />,
+			},
+			{
+				path: "/cart",
+				element: <Cart />,
 			},
 			{
 				path: "/grocery",
