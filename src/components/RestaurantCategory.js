@@ -1,8 +1,8 @@
-import { useState } from "react";
 import ItemDetails from "./ItemDetails";
+import { useState } from "react";
 
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
-	console.log("PROP:", showItems);
+	// console.log("PROP:", showItems);
 
 	//lifting state up
 	const handleClick = () => {

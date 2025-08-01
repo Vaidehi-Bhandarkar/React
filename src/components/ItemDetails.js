@@ -1,12 +1,18 @@
-import { addItem } from "../utils/redux/cartSlice";
+import { addItem, removeItem } from "../utils/redux/cartSlice";
+
 import { useDispatch } from "react-redux";
 
 const ItemDetails = (data) => {
 	const itemCrds = data?.data?.itemCards;
 
 	const dispatcher = useDispatch();
-	const handleClick = (item) => {
+	const handleClickAdd = (item) => {
 		dispatcher(addItem(item));
+	};
+
+	const handleClickRemove = (item) => {
+		console.log(item);
+		dispatcher(removeItem(item));
 	};
 
 	return (
@@ -40,11 +46,18 @@ const ItemDetails = (data) => {
 									alt={`${item?.card?.info?.name}`}
 									src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${item?.card?.info?.imageId}`}
 								/>
-								<button
-									className="absolute bottom-2 mb-1 p-2 bg-amber-700 text-amber-50 font-medium rounded-md cursor-pointer"
-									onClick={() => handleClick(item.card.info)}>
-									Add
-								</button>
+								<div className="absolute bottom-2 flex justify-start  w-full">
+									<button
+										className="p-2 m-1 bg-amber-700 text-amber-50 font-medium rounded-md cursor-pointer"
+										onClick={() => handleClickRemove(item.card.info)}>
+										-
+									</button>
+									<button
+										className="p-2 m-1 bg-amber-700 text-amber-50 font-medium rounded-md cursor-pointer"
+										onClick={() => handleClickAdd(item.card.info)}>
+										+
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -1,6 +1,5 @@
+import { addItem, clearCart, removeItem } from "../utils/redux/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-import { clearCart } from "../utils/redux/cartSlice";
 
 const calcTotal = (cartItems) => {
 	const total = cartItems.reduce((total, item) => {
@@ -17,6 +16,14 @@ const Cart = () => {
 
 	const cartClear = () => {
 		dispatch(clearCart());
+	};
+
+	const handleClickAdd = (item) => {
+		dispatch(addItem(item));
+	};
+
+	const handleClickRemove = (item) => {
+		dispatch(removeItem(item));
 	};
 
 	return (
@@ -58,6 +65,18 @@ const Cart = () => {
 										alt={`${item.name}`}
 										src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${item.imageId}`}
 									/>
+									<div className="absolute bottom-2 flex justify-start  w-full">
+										<button
+											className="p-2 m-1 bg-amber-700 text-amber-50 font-medium rounded-md cursor-pointer"
+											onClick={() => handleClickRemove(item)}>
+											-
+										</button>
+										<button
+											className="p-2 m-1 bg-amber-700 text-amber-50 font-medium rounded-md cursor-pointer"
+											onClick={() => handleClickAdd(item)}>
+											+
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
